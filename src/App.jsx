@@ -8,11 +8,17 @@ function App() {
 
   // Инициализация Telegram SDK
   useEffect(() => {
-    const telegram = window.Telegram.WebApp;
-    telegram.ready(); // Сообщаем Telegram, что приложение готово
-    telegram.MainButton.text = "Рассчитать ВАБ";
-    telegram.MainButton.onClick(onCalculate); // Обработчик нажатия
-    setTg(telegram); // Сохраняем Telegram объект в состоянии
+    const tg = window.Telegram.WebApp;
+
+    tg.ready(); // Сообщаем, что приложение готово
+    tg.MainButton.text = "Открыть приложение";
+    tg.MainButton.show(); // Показываем кнопку
+
+    tg.onEvent("mainButtonClicked", () => {
+      tg.sendData("Приложение работает!"); // Отправка тестового сообщения
+    });
+
+    console.log("Telegram WebApp Initialized");
   }, []);
 
   const [inputs, setInputs] = useState({
