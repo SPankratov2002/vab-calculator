@@ -13,17 +13,6 @@ function App() {
     // Сообщаем Telegram, что приложение готово
     tg.ready();
     console.log("Telegram WebApp Initialized");
-
-    // Настройка основной кнопки
-    tg.MainButton.text = "Открыть приложение";
-    tg.MainButton.color = "#2cab37"; // Зелёный цвет
-    tg.MainButton.setParams({ is_visible: true }); // Принудительное отображение
-
-    // Обработка нажатия
-    tg.MainButton.onClick(() => {
-      console.log("Main Button Clicked!");
-      tg.sendData("Приложение запущено!");
-    });
     setTg(telegram); // Сохраняем Telegram объект в состоянии
   }, []);
 
