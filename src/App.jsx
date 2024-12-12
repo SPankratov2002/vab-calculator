@@ -12,6 +12,7 @@ function App() {
 
     // Сообщаем Telegram, что приложение готово
     tg.ready();
+    tg.MainButton.hide();
     console.log("Telegram WebApp Initialized");
     setTg(telegram); // Сохраняем Telegram объект в состоянии
   }, []);
