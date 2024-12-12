@@ -10,15 +10,20 @@ function App() {
   useEffect(() => {
     const tg = window.Telegram.WebApp;
 
-    tg.ready(); // Сообщаем, что приложение готово
-    tg.MainButton.text = "Открыть приложение";
-    tg.MainButton.show(); // Показываем кнопку
-
-    tg.onEvent("mainButtonClicked", () => {
-      tg.sendData("Приложение работает!"); // Отправка тестового сообщения
-    });
-
+    // Сообщаем Telegram, что приложение готово
+    tg.ready();
     console.log("Telegram WebApp Initialized");
+
+    // Настройка основной кнопки
+    tg.MainButton.text = "Открыть приложение";
+    tg.MainButton.color = "#2cab37"; // Зелёный цвет
+    tg.MainButton.setParams({ is_visible: true }); // Принудительное отображение
+
+    // Обработка нажатия
+    tg.MainButton.onClick(() => {
+      console.log("Main Button Clicked!");
+      tg.sendData("Приложение запущено!");
+    });
   }, []);
 
   const [inputs, setInputs] = useState({
