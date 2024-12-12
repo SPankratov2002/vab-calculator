@@ -5,7 +5,7 @@ import ResultSection from "./components/ResultSection";
 
 function App() {
   const [tg, setTg] = useState(null);
-
+  const telegram = window.Telegram.WebApp;
   // Инициализация Telegram SDK
   useEffect(() => {
     const tg = window.Telegram.WebApp;
@@ -24,6 +24,7 @@ function App() {
       console.log("Main Button Clicked!");
       tg.sendData("Приложение запущено!");
     });
+    setTg(telegram); // Сохраняем Telegram объект в состоянии
   }, []);
 
   const [inputs, setInputs] = useState({
