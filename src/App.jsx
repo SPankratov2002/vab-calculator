@@ -9,10 +9,11 @@ function App() {
   // Инициализация Telegram SDK
   useEffect(() => {
     const tg = window.Telegram.WebApp;
+    tg.MainButton.setParams({ is_visible: false });
 
     // Сообщаем Telegram, что приложение готово
     tg.ready();
-    tg.MainButton.hide();
+
     console.log("Telegram WebApp Initialized");
     setTg(telegram); // Сохраняем Telegram объект в состоянии
   }, []);
