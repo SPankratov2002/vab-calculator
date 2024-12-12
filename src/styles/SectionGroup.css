@@ -1,0 +1,51 @@
+.section-group {
+    border-radius: 10px;
+    background-color: #fff;
+    justify-content: space-between;
+}
+
+.input-column {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.form-control {
+    border-width: 2px;
+    border-radius: 10px;
+    border-right: none !important;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-control:focus {
+    border: 2px solid #55c0d3;
+    box-shadow: none;
+    outline: none;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+}
+
+.input-group:focus-within .input-group-text {
+    border-color: #55c0d3;
+}
+
+.input-group-text {
+    min-width: 60px;
+    border-width: 2px;
+    border-radius: 10px;
+    transition: border-color 0.3s ease;
+}
+
+.text-info {
+    color: #55c0d3 !important;
+    background-color: #fff;
+    border-radius: 20px;
+}
+
+.divider {
+    width: 2px;
+    background-color: #55c0d3;
+}
