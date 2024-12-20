@@ -89,21 +89,9 @@ function App() {
     });
 
     // Отправка данных в Telegram
-    if (tg) {
-      tg.sendData(
-        JSON.stringify({
-          vabRight,
-          vabLeft,
-          vabSummary,
-        })
-      );
-    }
+    
   };
 
-  // Основная кнопка Telegram
-  const onCalculate = () => {
-    calculateVAB();
-  };
 
   return (
     <div className="container py-3">
