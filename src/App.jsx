@@ -52,9 +52,9 @@ function App() {
 
   // Определение цвета для фона результата
   const getResultColor = (value) => {
-    if (value >= 65 && value <= 100) {
+    if (value >= 65 && value <= 85) {
       return "bg-success"; // Зелёный
-    } else if ((value > 40 && value < 65) || (value > 85 && value <= 90)) {
+    } else if ((value > 40 && value < 65) || (value > 85 && value <= 100)) {
       return "bg-warning"; // Жёлтый
     } else {
       return "bg-danger"; // Красный
