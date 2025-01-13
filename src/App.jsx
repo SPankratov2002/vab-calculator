@@ -52,9 +52,9 @@ function App() {
 
   // Определение цвета для фона результата
   const getResultColor = (value) => {
-    if (value >= 65 && value <= 85) {
+    if (value >= 65 && value <= 100) {
       return "bg-success"; // Зелёный
-    } else if ((value > 60 && value < 65) || (value > 85 && value <= 90)) {
+    } else if ((value > 40 && value < 65) || (value > 85 && value <= 90)) {
       return "bg-warning"; // Жёлтый
     } else {
       return "bg-danger"; // Красный
@@ -70,28 +70,36 @@ function App() {
 
     setErrors(false);
 
-    const calculateSide = (data) => {
-      const numerator = data.svjav * data.vvjav;
-      const denominator = data.sosa * data.vosa + data.spa * data.vpa;
+    const calculateSide = (data, oppositeData) => {
+      const numerator = data.svjav * data.vvjav; // ВЯВ
+      const denominator =
+        data.sosa * data.vosa +
+        oppositeData.sosa * oppositeData.vosa + // Сумма ОСА
+        data.spa * data.vpa +
+        oppositeData.spa * oppositeData.vpa; // Сумма ПА
+
+      console.log(
+        data.sosa * data.vosa,
+        oppositeData.sosa * oppositeData.vosa,
+        data.spa * data.vpa,
+        oppositeData.spa * oppositeData.vpa
+      );
+
       return denominator !== 0
         ? ((numerator / denominator) * 100).toFixed(2)
         : 0;
     };
 
-    const vabRight = calculateSide(inputs.right);
-    const vabLeft = calculateSide(inputs.left);
-    const vabSummary = (parseFloat(vabRight) + parseFloat(vabLeft)).toFixed(2);
+    const vabRight = calculateSide(inputs.right, inputs.left); // Правая сторона
+    const vabLeft = calculateSide(inputs.left, inputs.right); // Левая сторона
+    const vabSummary = (parseFloat(vabRight) + parseFloat(vabLeft)).toFixed(2); // Итоговый ВАБ
 
     setResults({
       right: vabRight,
       left: vabLeft,
       summary: vabSummary,
     });
-
-    // Отправка данных в Telegram
-    
   };
-
 
   return (
     <div className="container py-3">
