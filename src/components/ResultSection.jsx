@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from "react";
 import "../styles/ResultSection.css";
 
-function ResultSection({ results, onCalculate, getResultColor }) {
+function ResultSection({
+  results,
+  onCalculate,
+  getResultColor,
+  onReset,
+  resultText,
+  isCalculated,
+}) {
   const [animatedRight, setAnimatedRight] = useState(0);
   const [animatedLeft, setAnimatedLeft] = useState(0);
   const [animatedSummary, setAnimatedSummary] = useState(0);
@@ -72,9 +79,18 @@ function ResultSection({ results, onCalculate, getResultColor }) {
           </div>
         </div>
 
-        <p className="mt-2 text-muted text-center">
-          Нормальный диапазон: 65% - 85%
-        </p>
+        {isCalculated && (
+          <p className={`text-center ${resultText.color} fw-bold py-2`}>
+            {resultText.text}
+          </p>
+        )}
+
+        <div className="danger-sections mb-4">
+          <button className="btn btn-danger me-3" onClick={onReset}>
+            Сбросить
+          </button>
+          <p className="text-muted m-0">Сброс всех параметров калькулятора</p>
+        </div>
       </div>
     </div>
   );

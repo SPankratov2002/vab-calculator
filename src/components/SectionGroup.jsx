@@ -2,7 +2,7 @@ import React from "react";
 import "../styles/SectionGroup.css";
 import InputGroup from "./InputGroup";
 
-function SectionGroup({ title, inputs, onChange }) {
+function SectionGroup({ title, inputs, values, onChange }) {
   return (
     <>
       <h5 className="text-center text-info fw-bold py-2 shadow-sm">{title}</h5>
@@ -16,6 +16,7 @@ function SectionGroup({ title, inputs, onChange }) {
                 field={input.field}
                 unit={input.unit}
                 side="right"
+                value={values.right[input.field]} // Привязка значения
                 onChange={onChange}
               />
             ))}
@@ -31,6 +32,7 @@ function SectionGroup({ title, inputs, onChange }) {
                 field={input.field}
                 unit={input.unit}
                 side="left"
+                value={values.left[input.field]} // Привязка значения
                 onChange={onChange}
               />
             ))}

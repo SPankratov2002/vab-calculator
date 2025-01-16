@@ -56,3 +56,18 @@
     background-color: #f0f0f2 !important;
     color: #fff;
 }
+
+.text-warning {
+    background-color: #ffc1072f;
+    border-radius: 40px;
+}
+
+.text-success {
+    background-color: #1987542f;
+    border-radius: 40px;
+}
+
+.text-danger {
+    background-color: #dc35452f;
+    border-radius: 40px;
+}

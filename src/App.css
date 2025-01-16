@@ -33,6 +33,17 @@ body {
   }
 }
 
+.danger-sections {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-danger {
+  border-radius: 40px;
+  font-size: 1rem;
+}
+
 .error-alert {
   animation: fadeInDown 0.5s ease-in-out;
 }

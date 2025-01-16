@@ -5,6 +5,7 @@ import ResultSection from "./components/ResultSection";
 
 function App() {
   const [tg, setTg] = useState(null);
+  const [isCalculated, setIsCalculated] = useState(false);
   const telegram = window.Telegram.WebApp;
   // Инициализация Telegram SDK
   useEffect(() => {
@@ -19,8 +20,22 @@ function App() {
   }, []);
 
   const [inputs, setInputs] = useState({
-    right: { svjav: 0, vvjav: 0, sosa: 0, vosa: 0, spa: 0, vpa: 0 },
-    left: { svjav: 0, vvjav: 0, sosa: 0, vosa: 0, spa: 0, vpa: 0 },
+    right: {
+      svjav: "",
+      vvjav: "",
+      sosa: "",
+      vosa: "",
+      spa: "",
+      vpa: "",
+    },
+    left: {
+      svjav: "",
+      vvjav: "",
+      sosa: "",
+      vosa: "",
+      spa: "",
+      vpa: "",
+    },
   });
 
   const [results, setResults] = useState({
@@ -30,6 +45,23 @@ function App() {
   });
 
   const [errors, setErrors] = useState(false);
+
+  // Сброс полей
+  const resetInputs = () => {
+    setInputs({
+      right: { svjav: "", vvjav: " ", sosa: "", vosa: "", spa: "", vpa: "" },
+      left: { svjav: "", vvjav: "", sosa: "", vosa: "", spa: "", vpa: "" },
+    });
+
+    setResults({
+      right: 0,
+      left: 0,
+      summary: 0,
+    });
+
+    setErrors(false);
+    setIsCalculated(false);
+  };
 
   // Проверка на заполненность всех полей
   const areInputsValid = () => {
@@ -45,19 +77,30 @@ function App() {
       ...prev,
       [side]: {
         ...prev[side],
-        [field]: parseFloat(value) || 0,
+        [field]: value === "" ? "" : parseFloat(value), // Оставляем пустую строку, если поле очищено
       },
     }));
   };
 
   // Определение цвета для фона результата
   const getResultColor = (value) => {
-    if (value >= 65 && value <= 85) {
-      return "bg-success"; // Зелёный
-    } else if ((value > 40 && value < 65) || (value > 85 && value <= 100)) {
-      return "bg-warning"; // Жёлтый
+    if (value >= 65 && value <= 100) {
+      return "bg-success";
+    } else if (value > 40 && value < 65) {
+      return "bg-warning";
     } else {
-      return "bg-danger"; // Красный
+      return "bg-danger";
+    }
+  };
+
+  // Определение цвета для текста результата
+  const getResultText = (value) => {
+    if (value >= 65 && value <= 100) {
+      return { text: "Норма", color: "text-success" };
+    } else if (value > 40 && value < 65) {
+      return { text: "Риск венозного застоя", color: "text-warning" };
+    } else {
+      return { text: "Венозный застой", color: "text-danger" };
     }
   };
 
@@ -99,6 +142,8 @@ function App() {
       left: vabLeft,
       summary: vabSummary,
     });
+
+    setIsCalculated(true); // Показываем текст результата
   };
 
   return (
@@ -121,6 +166,7 @@ function App() {
           ],
         }}
         onChange={handleInputChange}
+        values={inputs}
       />
 
       <SectionGroup
@@ -136,6 +182,7 @@ function App() {
           ],
         }}
         onChange={handleInputChange}
+        values={inputs}
       />
 
       <SectionGroup
@@ -151,6 +198,7 @@ function App() {
           ],
         }}
         onChange={handleInputChange}
+        values={inputs}
       />
 
       {errors && (
@@ -163,6 +211,9 @@ function App() {
         results={results}
         onCalculate={calculateVAB}
         getResultColor={getResultColor}
+        onReset={resetInputs}
+        isCalculated={isCalculated}
+        resultText={getResultText(results.summary)} // Передача текста и цвета
       />
     </div>
   );
